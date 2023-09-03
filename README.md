@@ -7,6 +7,9 @@ AtlasShrugged is a real time posture detection application that helps users to m
 - Audible feedback (beep sound) on posture deviations
 - Configurable to allow or disallow leaning
 
+## Documentation
+For in-depth information on the process of building AtlasShrugged, its intricacies and functionalities, [Explore Documentation](https://docs.google.com/document/d/1y5LRWBOdgGeY9-w0d86qX-QkyuRCVB3tGYrottacHN4/edit?usp=sharing)
+
 ## Installation
 1. Prerequisties: [Python](https://www.python.org/downloads/)
 2. Clone the repo
