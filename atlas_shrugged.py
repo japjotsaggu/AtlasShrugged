@@ -2,6 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import sounddevice as sd
+import math
 
 mp_pose = mp.solutions.pose
 
@@ -25,11 +26,25 @@ def capture_landmarks(pose, image):
     else:
         return None 
 
+def distance(l1, l2):
+    return math.sqrt((l1.x - l2.x)**2 + (l1.y - l2.y)**2)
+
+def angle(N, R, L):
+    return math.acos((N**2 - R**2 - L**2) / (-2 * R * L))
+
 def deviation_detector(landmarks, landmarks_ideal):
-    if landmarks[11].y > landmarks_ideal[11].y and landmarks[12].y > landmarks_ideal[12].y and landmarks[0].y > landmarks_ideal[0].y:
-    	return True 
+    N = distance(landmarks[11], landmarks[12])
+    R = distance(landmarks[0], landmarks[11])
+    L = distance(landmarks[0], landmarks[12])
+
+    N_ideal = distance(landmarks_ideal[11], landmarks_ideal[12])
+    R_ideal = distance(landmarks_ideal[0], landmarks_ideal[11])
+    L_ideal = distance(landmarks_ideal[0], landmarks_ideal[12])
+    
+    if angle(N, R, L) > angle(N_ideal, R_ideal, L_ideal):
+        return True 
     else:
-    	return False 
+        return False
 
 
 def main():
