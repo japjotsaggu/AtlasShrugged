@@ -57,7 +57,7 @@ def deviation_detector(landmarks, landmarks_ideal, allow_lean):
 
 
 def main():
-
+    allow_lean = input("Do you want to allow leaning? - Yes or No: ")
     ready = input("Are you ready ? - Yes or No: ").lower()
     
     if ready == "yes":
