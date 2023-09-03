@@ -23,7 +23,7 @@ AtlasShrugged is a real time posture detection application that helps users to m
    
 5. Run application
    
-   ```python posture_detection.py```
+   ```python atlas_shrugged.py```
 
    - You will be prompted to allow or disallow leaning.
    - Capture your ideal posture when prompted by the program
