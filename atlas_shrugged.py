@@ -32,7 +32,7 @@ def distance(l1, l2):
 def angle(N, R, L):
     return math.acos((N**2 - R**2 - L**2) / (-2 * R * L))
 
-def deviation_detector(landmarks, landmarks_ideal):
+def deviation_detector(landmarks, landmarks_ideal, allow_lean):
     N = distance(landmarks[11], landmarks[12])
     R = distance(landmarks[0], landmarks[11])
     L = distance(landmarks[0], landmarks[12])
@@ -41,10 +41,19 @@ def deviation_detector(landmarks, landmarks_ideal):
     R_ideal = distance(landmarks_ideal[0], landmarks_ideal[11])
     L_ideal = distance(landmarks_ideal[0], landmarks_ideal[12])
     
-    if angle(N, R, L) > angle(N_ideal, R_ideal, L_ideal):
-        return True 
-    else:
-        return False
+    if allow_lean.lower() == "yes":
+        if landmarks[11].z > landmarks_ideal[11].z:
+            pass
+        elif landmarks[0].z <= landmarks_ideal[0].z and angle(N, R, L) > angle(N_ideal, R_ideal, L_ideal):
+            return True 
+    
+    elif allow_lean.lower() == "no":
+        if angle(N, R, L) > angle(N_ideal, R_ideal, L_ideal):
+            return True 
+        else:
+            return False
+
+    return False
 
 
 def main():
@@ -93,7 +102,7 @@ def main():
                 if not landmarks:
                     pass
 
-                elif deviation_detector(landmarks, landmarks_ideal):
+                elif deviation_detector(landmarks, landmarks_ideal, allow_lean):
                     play_beep()
 
 
